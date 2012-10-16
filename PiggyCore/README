@@ -1,0 +1,1 @@
+Piggy Desktop is a project for a Personal Finance Manager, written in C# and using an SQLite database. Its objective is to be flexible and open, and the most important features are importing data (qif, ofx, excel...) and simple and seamless multidirectional sync - possibly using a broadcast to discover other clients.
