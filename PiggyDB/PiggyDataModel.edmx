@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PiggyModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="PiggyModelStoreContainer">
+          <EntitySet Name="Account" EntityType="PiggyModel.Store.Account" store:Type="Tables" />
+          <EntitySet Name="AccountType" EntityType="PiggyModel.Store.AccountType" store:Type="Tables" />
+          <EntitySet Name="Balance" EntityType="PiggyModel.Store.Balance" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="PiggyModel.Store.Category" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="PiggyModel.Store.Currency" store:Type="Tables" />
+          <EntitySet Name="FinancialInstitution" EntityType="PiggyModel.Store.FinancialInstitution" store:Type="Tables" />
+          <EntitySet Name="Preferences" EntityType="PiggyModel.Store.Preferences" store:Type="Tables" store:Name="Preferences">
+            <DefiningQuery>SELECT 
+      [Preferences].[default_currency] AS [default_currency]
+      FROM [Preferences] AS [Preferences]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Transactions" EntityType="PiggyModel.Store.Transactions" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_0" Association="PiggyModel.Store.FK_Account_0">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_1" Association="PiggyModel.Store.FK_Account_1">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitution" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_2" Association="PiggyModel.Store.FK_Account_2">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Balance_0" Association="PiggyModel.Store.FK_Balance_0">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Balance" EntitySet="Balance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_0" Association="PiggyModel.Store.FK_Category_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_0" Association="PiggyModel.Store.FK_Transactions_0">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_1" Association="PiggyModel.Store.FK_Transactions_1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_2" Association="PiggyModel.Store.FK_Transactions_2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="account_type" Type="integer" Nullable="false" />
+          <Property Name="financial_institution" Type="integer" Nullable="false" />
+          <Property Name="currency" Type="integer" Nullable="false" />
+          <Property Name="ofx_acct_id" Type="nvarchar" MaxLength="40" />
+          <Property Name="acct_limit" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="ofx_type" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Balance">
+          <Key>
+            <PropertyRef Name="account" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="account" Type="integer" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="balance" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="parent" Type="integer" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="symbol" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="FinancialInstitution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="ofx_bankid" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'main.Preferences' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Preferences">
+          <Key>
+            <PropertyRef Name="default_currency" />
+          </Key>
+          <Property Name="default_currency" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="from_account" Type="integer" />
+          <Property Name="to_account" Type="integer" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="payee" Type="nvarchar" MaxLength="100" />
+          <Property Name="category" Type="integer" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" />
+          <Property Name="from_ofx_fitid" Type="nvarchar" MaxLength="255" />
+          <Property Name="to_ofx_fitid" Type="nvarchar" MaxLength="255" />
+          <Property Name="last_modified" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="nvarchar" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_Account_0">
+          <End Role="Currency" Type="PiggyModel.Store.Currency" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="currency" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_1">
+          <End Role="FinancialInstitution" Type="PiggyModel.Store.FinancialInstitution" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="financial_institution" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_2">
+          <End Role="AccountType" Type="PiggyModel.Store.AccountType" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="account_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Balance_0">
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="1" />
+          <End Role="Balance" Type="PiggyModel.Store.Balance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Balance">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_0">
+          <End Role="Category" Type="PiggyModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="PiggyModel.Store.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_0">
+          <End Role="Category" Type="PiggyModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Store.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_1">
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Store.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="to_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_2">
+          <End Role="Account" Type="PiggyModel.Store.Account" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Store.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="from_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PiggyModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="piggyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="PiggyModel.Account" />
+          <EntitySet Name="AccountTypes" EntityType="PiggyModel.AccountType" />
+          <EntitySet Name="Balances" EntityType="PiggyModel.Balance" />
+          <EntitySet Name="Categories" EntityType="PiggyModel.Category" />
+          <EntitySet Name="Currencies" EntityType="PiggyModel.Currency" />
+          <EntitySet Name="FinancialInstitutions" EntityType="PiggyModel.FinancialInstitution" />
+          <EntitySet Name="Preferences" EntityType="PiggyModel.Preference" />
+          <EntitySet Name="Transactions" EntityType="PiggyModel.Transaction" />
+          <AssociationSet Name="FK_Account_0" Association="PiggyModel.FK_Account_0">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_1" Association="PiggyModel.FK_Account_1">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitutions" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_2" Association="PiggyModel.FK_Account_2">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Balance_0" Association="PiggyModel.FK_Balance_0">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Balance" EntitySet="Balances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_1" Association="PiggyModel.FK_Transactions_1">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_2" Association="PiggyModel.FK_Transactions_2">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_0" Association="PiggyModel.FK_Category_0">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_0" Association="PiggyModel.FK_Transactions_0">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="account_type" Type="Int64" Nullable="false" />
+          <Property Name="financial_institution" Type="Int64" Nullable="false" />
+          <Property Name="currency" Type="Int64" Nullable="false" />
+          <Property Name="ofx_acct_id" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="acct_limit" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Currency1" Relationship="PiggyModel.FK_Account_0" FromRole="Account" ToRole="Currency" />
+          <NavigationProperty Name="FinancialInstitution" Relationship="PiggyModel.FK_Account_1" FromRole="Account" ToRole="FinancialInstitution" />
+          <NavigationProperty Name="AccountType" Relationship="PiggyModel.FK_Account_2" FromRole="Account" ToRole="AccountType" />
+          <NavigationProperty Name="Balances" Relationship="PiggyModel.FK_Balance_0" FromRole="Account" ToRole="Balance" />
+          <NavigationProperty Name="Transactions" Relationship="PiggyModel.FK_Transactions_1" FromRole="Account" ToRole="Transactions" />
+          <NavigationProperty Name="Transactions1" Relationship="PiggyModel.FK_Transactions_2" FromRole="Account" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="ofx_type" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Accounts" Relationship="PiggyModel.FK_Account_2" FromRole="AccountType" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Balance">
+          <Key>
+            <PropertyRef Name="account" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="account" Type="Int64" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="balance1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Account1" Relationship="PiggyModel.FK_Balance_0" FromRole="Balance" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent" Type="Int64" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Category1" Relationship="PiggyModel.FK_Category_0" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="PiggyModel.FK_Category_0" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Transactions" Relationship="PiggyModel.FK_Transactions_0" FromRole="Category" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="symbol" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Accounts" Relationship="PiggyModel.FK_Account_0" FromRole="Currency" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="FinancialInstitution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="ofx_bankid" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Accounts" Relationship="PiggyModel.FK_Account_1" FromRole="FinancialInstitution" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="default_currency" />
+          </Key>
+          <Property Name="default_currency" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="from_account" Type="Int64" />
+          <Property Name="to_account" Type="Int64" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="value" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="payee" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="category" Type="Int64" />
+          <Property Name="memo" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="from_ofx_fitid" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="to_ofx_fitid" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="last_modified" Type="DateTime" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Account" Relationship="PiggyModel.FK_Transactions_1" FromRole="Transactions" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="PiggyModel.FK_Transactions_2" FromRole="Transactions" ToRole="Account" />
+          <NavigationProperty Name="Category1" Relationship="PiggyModel.FK_Transactions_0" FromRole="Transactions" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK_Account_0">
+          <End Role="Currency" Type="PiggyModel.Currency" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="currency" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_1">
+          <End Role="FinancialInstitution" Type="PiggyModel.FinancialInstitution" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="financial_institution" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_2">
+          <End Role="AccountType" Type="PiggyModel.AccountType" Multiplicity="1" />
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="account_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Balance_0">
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="1" />
+          <End Role="Balance" Type="PiggyModel.Balance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Balance">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_1">
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="to_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_2">
+          <End Role="Account" Type="PiggyModel.Account" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="from_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_0">
+          <End Role="Category" Type="PiggyModel.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="PiggyModel.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_0">
+          <End Role="Category" Type="PiggyModel.Category" Multiplicity="0..1" />
+          <End Role="Transactions" Type="PiggyModel.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PiggyModelStoreContainer" CdmEntityContainer="piggyEntities">
+          <EntitySetMapping Name="Accounts"><EntityTypeMapping TypeName="PiggyModel.Account"><MappingFragment StoreEntitySet="Account">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="account_type" ColumnName="account_type" />
+            <ScalarProperty Name="financial_institution" ColumnName="financial_institution" />
+            <ScalarProperty Name="currency" ColumnName="currency" />
+            <ScalarProperty Name="ofx_acct_id" ColumnName="ofx_acct_id" />
+            <ScalarProperty Name="acct_limit" ColumnName="acct_limit" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AccountTypes"><EntityTypeMapping TypeName="PiggyModel.AccountType"><MappingFragment StoreEntitySet="AccountType">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="ofx_type" ColumnName="ofx_type" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Balances"><EntityTypeMapping TypeName="PiggyModel.Balance"><MappingFragment StoreEntitySet="Balance">
+            <ScalarProperty Name="account" ColumnName="account" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="balance1" ColumnName="balance" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="PiggyModel.Category"><MappingFragment StoreEntitySet="Category">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="parent" ColumnName="parent" />
+            <ScalarProperty Name="name" ColumnName="name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Currencies"><EntityTypeMapping TypeName="PiggyModel.Currency"><MappingFragment StoreEntitySet="Currency">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="symbol" ColumnName="symbol" />
+            <ScalarProperty Name="name" ColumnName="name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FinancialInstitutions"><EntityTypeMapping TypeName="PiggyModel.FinancialInstitution"><MappingFragment StoreEntitySet="FinancialInstitution">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="ofx_bankid" ColumnName="ofx_bankid" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Preferences"><EntityTypeMapping TypeName="PiggyModel.Preference"><MappingFragment StoreEntitySet="Preferences">
+            <ScalarProperty Name="default_currency" ColumnName="default_currency" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Transactions"><EntityTypeMapping TypeName="PiggyModel.Transaction"><MappingFragment StoreEntitySet="Transactions">
+            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="from_account" ColumnName="from_account" />
+            <ScalarProperty Name="to_account" ColumnName="to_account" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="value" ColumnName="value" />
+            <ScalarProperty Name="payee" ColumnName="payee" />
+            <ScalarProperty Name="category" ColumnName="category" />
+            <ScalarProperty Name="memo" ColumnName="memo" />
+            <ScalarProperty Name="from_ofx_fitid" ColumnName="from_ofx_fitid" />
+            <ScalarProperty Name="to_ofx_fitid" ColumnName="to_ofx_fitid" />
+            <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+            <ScalarProperty Name="status" ColumnName="status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="PiggyDateModel">
+        <EntityTypeShape EntityType="PiggyModel.Account" Width="1.5" PointX="2.75" PointY="0.5" Height="3.0714322916666679" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.AccountType" Width="1.5" PointX="0.5" PointY="2.375" Height="1.5923063151041679" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Balance" Width="1.5" PointX="5" PointY="0.5" Height="1.5923063151041657" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Category" Width="1.5" PointX="7.375" PointY="2.25" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Currency" Width="1.5" PointX="0.5" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.FinancialInstitution" Width="1.5" PointX="0.5" PointY="4.25" Height="1.5923063151041657" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Preference" Width="1.5" PointX="7.25" PointY="0.5" Height="1.0992643229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Transaction" Width="1.5" PointX="5.125" PointY="2.25" Height="3.400126953125" IsExpanded="true" />
+        <AssociationConnector Association="PiggyModel.FK_Account_0" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="1.2961531575520837" />
+          <ConnectorPoint PointX="2.75" PointY="1.2961531575520837" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Account_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="4.84375" />
+          <ConnectorPoint PointX="2.84375" PointY="4.84375" />
+          <ConnectorPoint PointX="2.84375" PointY="3.5714322916666679" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Account_2" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="2.9732161458333337" />
+          <ConnectorPoint PointX="2.75" PointY="2.9732161458333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Balance_0" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.25" PointY="1.2961531575520828" />
+          <ConnectorPoint PointX="5" PointY="1.2961531575520828" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Transactions_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.25" PointY="2.9107161458333337" />
+          <ConnectorPoint PointX="5.125" PointY="2.9107161458333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Transactions_2" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.25" PointY="2.5178580729166669" />
+          <ConnectorPoint PointX="5.125" PointY="2.5178580729166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Category_0" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.9069230769230776" PointY="4.1710009765625" />
+          <ConnectorPoint PointX="7.9069230769230776" PointY="4.4210009765625" />
+          <ConnectorPoint PointX="8.35346153846154" PointY="4.4210009765625" />
+          <ConnectorPoint PointX="8.35346153846154" PointY="4.1710009765625" />
+        </AssociationConnector>
+        <AssociationConnector Association="PiggyModel.FK_Transactions_0" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.375" PointY="3.21050048828125" />
+          <ConnectorPoint PointX="6.625" PointY="3.21050048828125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

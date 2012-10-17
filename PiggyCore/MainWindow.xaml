@@ -3,10 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Menu HorizontalAlignment="Left" Name="mainMenu" VerticalAlignment="Top" />
         <TreeView HorizontalAlignment="Left" Name="accountsTreeView" VerticalAlignment="Top"/>
         <TabControl HorizontalAlignment="Left" Name="viewsTabControl" VerticalAlignment="Top">
             <TabItem Header="Overview" Name="overviewTabItem">
-                <Grid />
+                <Grid>
+                    <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" Name="transactionsDataGrid" VerticalAlignment="Top" DataContext="{Binding}" ItemsSource="{Binding}" />
+                </Grid>
             </TabItem>
             <TabItem Header="Transactions" Name="transactionsTabItem">
                 <Grid />
