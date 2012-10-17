@@ -55,12 +55,16 @@
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <None Include="piggy.db" />
+    <None Include="Database\piggy.s3db" />
+    <None Include="Database\piggy_empty.s3db" />
+    <None Include="Database\piggy_seed.s3db" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\schema.sql" />
+    <Content Include="Database\seed.sql" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
