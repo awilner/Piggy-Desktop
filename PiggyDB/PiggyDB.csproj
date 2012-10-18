@@ -66,15 +66,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Database\piggy.s3db" />
     <None Include="Database\piggy_empty.s3db" />
     <None Include="Database\piggy_seed.s3db" />
-    <None Include="packages.config" />
     <EntityDeploy Include="PiggyDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PiggyDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -231,7 +231,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PiggyModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="piggyEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PiggyContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="PiggyModel.Account" />
           <EntitySet Name="AccountTypes" EntityType="PiggyModel.AccountType" />
           <EntitySet Name="Balances" EntityType="PiggyModel.Balance" />
@@ -466,7 +466,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PiggyModelStoreContainer" CdmEntityContainer="piggyEntities">
+        <EntityContainerMapping StorageEntityContainer="PiggyModelStoreContainer" CdmEntityContainer="PiggyContext">
           <EntitySetMapping Name="Accounts"><EntityTypeMapping TypeName="PiggyModel.Account"><MappingFragment StoreEntitySet="Account">
             <ScalarProperty Name="id" ColumnName="id" />
             <ScalarProperty Name="name" ColumnName="name" />
@@ -538,49 +538,48 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="PiggyDateModel">
-        <EntityTypeShape EntityType="PiggyModel.Account" Width="1.5" PointX="2.75" PointY="0.5" Height="3.0714322916666679" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.AccountType" Width="1.5" PointX="0.5" PointY="2.375" Height="1.5923063151041679" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.Balance" Width="1.5" PointX="5" PointY="0.5" Height="1.5923063151041657" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.Category" Width="1.5" PointX="7.375" PointY="2.25" Height="1.9210009765624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.Currency" Width="1.5" PointX="0.5" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.FinancialInstitution" Width="1.5" PointX="0.5" PointY="4.25" Height="1.5923063151041657" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.Preference" Width="1.5" PointX="7.25" PointY="0.5" Height="1.0992643229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="PiggyModel.Transaction" Width="1.5" PointX="5.125" PointY="2.25" Height="3.400126953125" IsExpanded="true" />
+      <Diagram Name="PiggyDataModel">
+        <EntityTypeShape EntityType="PiggyModel.Account" Width="1.5" PointX="2.875" PointY="2.625" Height="3.0714322916666679" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.AccountType" Width="1.5" PointX="0.625" PointY="3.875" Height="1.5923063151041679" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Balance" Width="1.5" PointX="4.875" PointY="4" Height="1.5923063151041657" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Category" Width="1.5" PointX="4.75" PointY="0.5" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Currency" Width="1.5" PointX="0.625" PointY="2" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.FinancialInstitution" Width="1.5" PointX="2.75" PointY="0.5" Height="1.5923063151041657" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Preference" Width="1.5" PointX="0.5" PointY="0.5" Height="1.0992643229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="PiggyModel.Transaction" Width="1.5" PointX="6.75" PointY="0.875" Height="3.400126953125" IsExpanded="true" />
         <AssociationConnector Association="PiggyModel.FK_Account_0" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="1.2961531575520837" />
-          <ConnectorPoint PointX="2.75" PointY="1.2961531575520837" />
+          <ConnectorPoint PointX="2.125" PointY="3.1086531575520837" />
+          <ConnectorPoint PointX="2.875" PointY="3.1086531575520837" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Account_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="4.84375" />
-          <ConnectorPoint PointX="2.84375" PointY="4.84375" />
-          <ConnectorPoint PointX="2.84375" PointY="3.5714322916666679" />
+          <ConnectorPoint PointX="3.5625" PointY="2.0923063151041656" />
+          <ConnectorPoint PointX="3.5625" PointY="2.625" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Account_2" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="2.9732161458333337" />
-          <ConnectorPoint PointX="2.75" PointY="2.9732161458333337" />
+          <ConnectorPoint PointX="2.125" PointY="4.6711531575520837" />
+          <ConnectorPoint PointX="2.875" PointY="4.6711531575520837" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Balance_0" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.25" PointY="1.2961531575520828" />
-          <ConnectorPoint PointX="5" PointY="1.2961531575520828" />
+          <ConnectorPoint PointX="4.375" PointY="4.7961531575520828" />
+          <ConnectorPoint PointX="4.875" PointY="4.7961531575520828" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Transactions_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.25" PointY="2.9107161458333337" />
-          <ConnectorPoint PointX="5.125" PointY="2.9107161458333337" />
+          <ConnectorPoint PointX="4.375" PointY="3.36675048828125" />
+          <ConnectorPoint PointX="6.75" PointY="3.36675048828125" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Transactions_2" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.25" PointY="2.5178580729166669" />
-          <ConnectorPoint PointX="5.125" PointY="2.5178580729166669" />
+          <ConnectorPoint PointX="4.375" PointY="3.7146252441406249" />
+          <ConnectorPoint PointX="6.75" PointY="3.7146252441406249" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Category_0" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.9069230769230776" PointY="4.1710009765625" />
-          <ConnectorPoint PointX="7.9069230769230776" PointY="4.4210009765625" />
-          <ConnectorPoint PointX="8.35346153846154" PointY="4.4210009765625" />
-          <ConnectorPoint PointX="8.35346153846154" PointY="4.1710009765625" />
+          <ConnectorPoint PointX="5.2819230769230767" PointY="2.4210009765624996" />
+          <ConnectorPoint PointX="5.2819230769230767" PointY="2.6710009765624996" />
+          <ConnectorPoint PointX="5.7284615384615378" PointY="2.6710009765624996" />
+          <ConnectorPoint PointX="5.7284615384615378" PointY="2.4210009765624996" />
         </AssociationConnector>
         <AssociationConnector Association="PiggyModel.FK_Transactions_0" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.375" PointY="3.21050048828125" />
-          <ConnectorPoint PointX="6.625" PointY="3.21050048828125" />
+          <ConnectorPoint PointX="6.25" PointY="1.6480004882812498" />
+          <ConnectorPoint PointX="6.75" PointY="1.6480004882812498" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

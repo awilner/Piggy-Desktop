@@ -36,32 +36,32 @@ namespace PiggyDB
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class piggyEntities : ObjectContext
+    public partial class PiggyContext : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new piggyEntities object using the connection string found in the 'piggyEntities' section of the application configuration file.
+        /// Initializes a new PiggyContext object using the connection string found in the 'PiggyContext' section of the application configuration file.
         /// </summary>
-        public piggyEntities() : base("name=piggyEntities", "piggyEntities")
+        public PiggyContext() : base("name=PiggyContext", "PiggyContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new piggyEntities object.
+        /// Initialize a new PiggyContext object.
         /// </summary>
-        public piggyEntities(string connectionString) : base(connectionString, "piggyEntities")
+        public PiggyContext(string connectionString) : base(connectionString, "PiggyContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new piggyEntities object.
+        /// Initialize a new PiggyContext object.
         /// </summary>
-        public piggyEntities(EntityConnection connection) : base(connection, "piggyEntities")
+        public PiggyContext(EntityConnection connection) : base(connection, "PiggyContext")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();

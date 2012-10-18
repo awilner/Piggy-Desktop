@@ -22,10 +22,13 @@ namespace PiggyCore
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            PiggyDB.piggyEntities context = new PiggyDB.piggyEntities();
-            var query = from e in context.Currencies select e;
-            transactionsDataGrid.DataContext = query.ToList<PiggyDB.Currency>();
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
+            var query = from c in context.Currencies select c;
+            transactionsDataGrid.ItemsSource = query;
         }
     }
 }
