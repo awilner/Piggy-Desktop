@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PiggyCore
+namespace PiggyUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,13 +22,9 @@ namespace PiggyCore
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void OnWindowLoaded(object sender, RoutedEventArgs e)
-        {
-            PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
-            var query = from c in context.Currencies select c;
-            transactionsDataGrid.ItemsSource = query;
+            //PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
+            //var query = from c in context.Currencies select c;
+            //transactionsDataGrid.ItemsSource = query;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace PiggyCore
+namespace PiggyUI
 {
     /// <summary>
     /// Interaction logic for App.xaml

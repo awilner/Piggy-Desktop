@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiggyCore", "PiggyCore\PiggyCore.csproj", "{1C494FC7-A9D2-40AF-8C8F-E9CFFDDAF2E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiggyUI", "PiggyUI\PiggyUI.csproj", "{1C494FC7-A9D2-40AF-8C8F-E9CFFDDAF2E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9FE0281D-88D8-4DE8-B3B3-57BB11445E86} = {9FE0281D-88D8-4DE8-B3B3-57BB11445E86}
 	EndProjectSection
