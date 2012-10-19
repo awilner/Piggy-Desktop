@@ -113,6 +113,10 @@
     <None Include="README" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImportExport\ImportExport.csproj">
+      <Project>{77F4F4CC-7F06-4544-BD34-34BA43079E5E}</Project>
+      <Name>ImportExport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PiggyDB\PiggyDB.csproj">
       <Project>{9FE0281D-88D8-4DE8-B3B3-57BB11445E86}</Project>
       <Name>PiggyDB</Name>

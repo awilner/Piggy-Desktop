@@ -26,5 +26,26 @@ namespace PiggyUI
             //var query = from c in context.Currencies select c;
             //transactionsDataGrid.ItemsSource = query;
         }
+
+        /// <summary>
+        /// Import can occur at any time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Import_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Creates .
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Import_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ImportExport.ImportWizardView importView = new ImportExport.ImportWizardView();
+        }
     }
 }
