@@ -27,6 +27,15 @@ namespace PiggyUI
             //transactionsDataGrid.ItemsSource = query;
         }
 
+        #region Commands
+
+        #region Import
+
+        /// <summary>
+        /// This is the ICommand object that routes the import command through to this object's methods.
+        /// </summary>
+        public static RoutedCommand ImportCmd = new RoutedCommand();
+
         /// <summary>
         /// Import can occur at any time.
         /// </summary>
@@ -39,13 +48,19 @@ namespace PiggyUI
         }
 
         /// <summary>
-        /// Creates .
+        /// Creates an import wizard.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Import_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ImportExport.ImportWizardView importView = new ImportExport.ImportWizardView();
+            ImportExport.Wizard.WizardDialog importDialog = new ImportExport.Wizard.WizardDialog(new ImportExport.Import.ImportWizardViewModel());
+            importDialog.ShowDialog();
+            e.Handled = true;
         }
+
+        #endregion // Import
+
+        #endregion // Commands
     }
 }
