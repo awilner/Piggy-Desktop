@@ -17,7 +17,7 @@ namespace ImportExport.Wizard
 
         #region Constructor
 
-        WizardPageViewModel(string displayName)
+        protected WizardPageViewModel(string displayName)
         {
             _displayName = displayName;
         }

@@ -8,10 +8,23 @@ namespace ImportExport.Import
 {
     public class ImportWizardViewModel : Wizard.WizardViewModel
     {
-        readonly static ReadOnlyCollection<Wizard.WizardPageViewModel> pages = new ReadOnlyCollection<Wizard.WizardPageViewModel>(new List<Wizard.WizardPageViewModel>());
+        #region Pages
+
+        static internal List<Wizard.WizardPageViewModel> GeneratePageList()
+        {
+            List<Wizard.WizardPageViewModel> pageList = new List<Wizard.WizardPageViewModel>();
+            pageList.Add(new ChooseFilePageViewModel());
+
+            return pageList;
+        }
+
+        readonly static ReadOnlyCollection<Wizard.WizardPageViewModel> _pages = new ReadOnlyCollection<Wizard.WizardPageViewModel>(GeneratePageList());
+        
+        #endregion // Pages
+
         #region Constructor
 
-        public ImportWizardViewModel() : base(pages)
+        public ImportWizardViewModel() : base(Resources.Strings.ImportWizard, _pages)
         {
         }
 

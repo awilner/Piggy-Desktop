@@ -20,19 +20,34 @@ namespace ImportExport.Wizard
         /// <summary>
         /// Current page index. -1 indicates an invalid state or an empty page collection.
         /// </summary>
-        int _currentPage;
+        int _currentPage = -1;
+
+        /// <summary>
+        /// List of pages. This actually contains the ViewModels for each page.
+        /// </summary>
         ReadOnlyCollection<WizardPageViewModel> _pages;
+
+        /// <summary>
+        /// The name of the wizard.
+        /// </summary>
+        string _wizardName;
 
         #endregion // Fields
 
         #region Constructor
 
-        public WizardViewModel(ReadOnlyCollection<WizardPageViewModel> pages)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="wizardName">Name of the wizard</param>
+        /// <param name="pages">List of page ViewModels</param>
+        public WizardViewModel(string wizardName,ReadOnlyCollection<WizardPageViewModel> pages)
         {
+            _wizardName = wizardName;
             _pages = pages;
 
             // Start with the first page, obviously.
-            _currentPage = 0;
+            CurrentPageIndex = 0;
         }
 
         #endregion // Constructor
@@ -94,6 +109,23 @@ namespace ImportExport.Wizard
 
         #endregion // NextPageCommand
 
+        #region CancelCommand
+
+        private void Cancel_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // We can always cancel.
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+
+        private void Cancel_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OnRequestClose();
+            e.Handled = true;
+        }
+
+        #endregion // CancelCommand
+
         #endregion // Commands
 
         #region Properties
@@ -137,13 +169,20 @@ namespace ImportExport.Wizard
                 if (value == _currentPage)
                     return;
 
-                _pages[_currentPage].IsCurrentPage = false;
+                if( _currentPage >= 0 && _currentPage < _pages.Count )
+                    _pages[_currentPage].IsCurrentPage = false;
 
                 _currentPage = value;
 
-                _pages[_currentPage].IsCurrentPage = true;
+                if (_currentPage >= 0 && _currentPage < _pages.Count)
+                    _pages[_currentPage].IsCurrentPage = true;
             }
 
+        }
+
+        public string WizardName
+        {
+            get { return _wizardName; }
         }
 
         #endregion // Properties

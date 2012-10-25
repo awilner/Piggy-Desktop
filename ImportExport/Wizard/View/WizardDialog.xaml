@@ -4,7 +4,26 @@
              WindowStartupLocation="CenterScreen"
              WindowStyle="SingleBorderWindow"
              Width="600" Height="400" Topmost="True">
-    <Grid>
+    
+    <Window.CommandBindings>
+        <!--<CommandBinding
+            Command="Close"
+            Executed="Close_Executed"
+            CanExecute="Close_CanExecute"
+            />
+        <CommandBinding
+            Command="NextPage"
+            Executed="NextPage_Executed"
+            CanExecute="NextPage_CanExecute"
+            />
+        <CommandBinding
+            Command="PreviousPage"
+            Executed="PreviousPage_Executed"
+            CanExecute="PreviousPage_CanExecute"
+            />-->
+    </Window.CommandBindings>
+    
+    <Grid Background="LightGray">
         <Grid.Resources>
 
             <Style TargetType="{x:Type Button}">
@@ -14,7 +33,7 @@
             </Style>
 
             <!-- This Style inherits from the Button style seen above. -->
-            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}" x:Key="moveNextButtonStyle">
+            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}" x:Key="nextPageButtonStyle">
                 <Setter Property="Content" Value="Next" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Path=IsOnLastPage}" Value="True">
@@ -22,6 +41,20 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            
+            <!-- Highlight the current step -->
+            <DataTemplate x:Key="wizardStepTemplate">
+                <TextBlock
+                    x:Name="txt"
+                    Margin="4,0,0,0"
+                    Text="{Binding Path=DisplayName}" 
+                />
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsCurrentPage}" Value="True">
+                        <Setter TargetName="txt" Property="FontWeight" Value="Bold" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
 
         </Grid.Resources>
 
@@ -43,6 +76,7 @@
             <HeaderedContentControl Header="{Binding Path=WizardName}">
                 <ItemsControl 
                     ItemsSource="{Binding Path=Pages}"
+                    ItemTemplate="{StaticResource wizardStepTemplate}" 
                 />
             </HeaderedContentControl>
         </Grid>
@@ -66,19 +100,19 @@
             <Button
                 Grid.Column="0"
                 Grid.Row="0"
-                Command="{Binding Path=MovePreviousCommand}"
+                Command="PreviousPage"
                 Content="Back" 
             />
             <Button
                 Grid.Column="1"
                 Grid.Row="0"
-                Command="{Binding Path=MoveNextCommand}"
-                Style="{StaticResource moveNextButtonStyle}" 
+                Command="NextPage"
+                Style="{StaticResource nextPageButtonStyle}" 
             />
             <Button
                 Grid.Column="3"
                 Grid.Row="0"
-                Command="{Binding Path=CancelCommand}"
+                Command="Close"
                 Content="Cancel"
             />
         </Grid>
