@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ChooseFile" xml:space="preserve">
     <value>Choose File</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
   </data>
   <data name="ImportWelcome" xml:space="preserve">
     <value>This wizard allows you to import data from QIF, OFX and other formats.</value>
   </data>
   <data name="ImportWizard" xml:space="preserve">
     <value>Import Wizard</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
   </data>
 </root>

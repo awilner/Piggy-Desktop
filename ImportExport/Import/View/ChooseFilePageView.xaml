@@ -4,5 +4,7 @@
              xmlns:res="clr-namespace:ImportExport.Resources">
     <Grid>
         <TextBlock Text="{x:Static res:Strings.ImportWelcome}"></TextBlock>
+        <TextBox></TextBox>
+        <Button></Button>
     </Grid>
 </UserControl>

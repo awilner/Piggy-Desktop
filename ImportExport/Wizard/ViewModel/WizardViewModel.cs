@@ -15,7 +15,7 @@ namespace ImportExport.Wizard
     /// </summary>
     public abstract class WizardViewModel
     {
-       #region Fields
+        #region Fields
 
         /// <summary>
         /// Current page index. -1 indicates an invalid state or an empty page collection.

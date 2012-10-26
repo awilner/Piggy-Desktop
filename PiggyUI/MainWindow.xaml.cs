@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace PiggyUI
 {
@@ -54,13 +55,23 @@ namespace PiggyUI
         /// <param name="e"></param>
         private void Import_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ImportExport.Wizard.WizardDialog importDialog = new ImportExport.Wizard.WizardDialog(new ImportExport.Import.ImportWizardViewModel());
-            importDialog.ShowDialog();
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "All Data Sources (*.qif, *.ofx, *.csv, *.txt, *.xml)|*.qif;*.ofx;*.csv;*.txt*;*.xml|All Files|*.*";
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // We receive an array of paths, but it must contain only one file.
+                string[] filePathList = openFileDialog.FileNames;
+                string filePath = filePathList[0];
+
+                ImportExport.Wizard.WizardDialog importDialog = ImportExport.Import.ImportWizardFactory.Instance.CreateWizard(filePath);
+                importDialog.ShowDialog();
+            }
             e.Handled = true;
         }
 
-        #endregion // Import
+        #endregion Import
 
-        #endregion // Commands
+        #endregion Commands
     }
 }
