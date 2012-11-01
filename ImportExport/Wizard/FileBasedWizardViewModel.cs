@@ -13,7 +13,7 @@ namespace ImportExport.Wizard
     {
         #region Fields;
 
-        string _file;
+        protected string _file;
 
         #endregion // Fields
 

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ImportExport.Import
 {
-    class ChooseFilePageViewModel : Wizard.WizardPageViewModel
+    class ChooseAccountPageViewModel : Wizard.WizardPageViewModel
     {
         #region Constructor
 
-        public ChooseFilePageViewModel() : base( Resources.Strings.ChooseFile )
+        public ChooseAccountPageViewModel() : base( Resources.Strings.ChooseAccount )
         {
         }
 

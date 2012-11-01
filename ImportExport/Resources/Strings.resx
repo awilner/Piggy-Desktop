@@ -123,8 +123,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="ChooseFile" xml:space="preserve">
-    <value>Choose File</value>
+  <data name="ChooseAccount" xml:space="preserve">
+    <value>Choose Account</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>

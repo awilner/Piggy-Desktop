@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ImportExport.Import
 {
     /// <summary>
-    /// Interaction logic for ChooseFilePageView.xaml
+    /// Interaction logic for ChooseAccountPageView.xaml
     /// </summary>
-    public partial class ChooseFilePageView : UserControl
+    public partial class ChooseAccountPageView : UserControl
     {
-        public ChooseFilePageView()
+        public ChooseAccountPageView()
         {
             InitializeComponent();
         }

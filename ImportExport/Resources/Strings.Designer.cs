@@ -79,11 +79,11 @@ namespace ImportExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose File.
+        ///   Looks up a localized string similar to Choose Account.
         /// </summary>
-        public static string ChooseFile {
+        public static string ChooseAccount {
             get {
-                return ResourceManager.GetString("ChooseFile", resourceCulture);
+                return ResourceManager.GetString("ChooseAccount", resourceCulture);
             }
         }
         

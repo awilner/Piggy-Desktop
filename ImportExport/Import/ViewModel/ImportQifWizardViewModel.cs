@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ImportExport.Import
 {
@@ -13,7 +15,7 @@ namespace ImportExport.Import
         static private List<Wizard.WizardPageViewModel> GeneratePageList()
         {
             List<Wizard.WizardPageViewModel> pageList = new List<Wizard.WizardPageViewModel>();
-            pageList.Add(new ChooseFilePageViewModel());
+            pageList.Add(new ChooseAccountPageViewModel());
 
             return pageList;
         }
@@ -26,6 +28,8 @@ namespace ImportExport.Import
 
         public ImportQifWizardViewModel(string filePath) : base(Resources.Strings.ImportWizard, _pages, filePath)
         {
+            // Parse the file before continuing.
+            parse();
         }
 
         #endregion // Constructor
@@ -34,6 +38,18 @@ namespace ImportExport.Import
 
         protected override void ApplyChanges()
         {
+        }
+
+        private void parse()
+        {
+            // First we try to load the file.
+            StreamReader reader = new StreamReader(_file);
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                Text += line;
+            }
+            
         }
 
         #endregion // Methods

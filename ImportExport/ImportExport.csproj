@@ -50,10 +50,10 @@
     <Compile Include="Import\ImportWizardFactory.cs" />
     <Compile Include="Wizard\FileBasedWizardViewModel.cs" />
     <Compile Include="Wizard\FileBasedWizardFactory.cs" />
-    <Compile Include="Import\ViewModel\ChooseFilePageViewModel.cs" />
+    <Compile Include="Import\ViewModel\ChooseAcountPageViewModel.cs" />
     <Compile Include="Import\ViewModel\ImportQifWizardViewModel.cs" />
-    <Compile Include="Import\View\ChooseFilePageView.xaml.cs">
-      <DependentUpon>ChooseFilePageView.xaml</DependentUpon>
+    <Compile Include="Import\View\ChooseAccountPageView.xaml.cs">
+      <DependentUpon>ChooseAccountPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wizard\WizardViewModelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,7 +69,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Import\View\ChooseFilePageView.xaml">
+    <Page Include="Import\View\ChooseAccountPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
