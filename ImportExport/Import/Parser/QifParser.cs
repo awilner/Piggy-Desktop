@@ -77,7 +77,7 @@ namespace ImportExport.Import.Parser
             _line = _reader.ReadLine();
             while (_line != null)
             {
-                switch (_line)
+                switch (_line.Trim())
                 {
                     case "!Type:Tag":
                         parseTags();
@@ -109,7 +109,10 @@ namespace ImportExport.Import.Parser
                     case "!Type:Bank":
                     case "!Type:CCard":
                     case "!Type:Oth":
+                    case "!Type:Oth L":
+                    case "!Type:Oth A":
                     case "!Type:Invst":
+                    case "!Type:Cash":
                         parseTransactions();
                         break;
 
@@ -117,6 +120,8 @@ namespace ImportExport.Import.Parser
                     case "!Type:Prices":
                         // Ignored for now.
                         _line = _reader.ReadLine();
+                        while (_line != null && _line[0] != '!')
+                            _line = _reader.ReadLine();
                         break;
 
                     default:
@@ -217,19 +222,6 @@ namespace ImportExport.Import.Parser
 
         private DateTime parseDate(string value)
         {
-            // First try to parse date through the .NET parser.
-            DateTime date = new DateTime();
-            try
-            {
-                date = DateTime.Parse(value);
-
-                return date;
-            }
-            catch (FormatException)
-            {
-                // The .NET parser failed, let's move on.
-            }
-
             // Use a regexp to parse QIF's bizarre format.
             Match match = Regex.Match(value, @"(\d\d?)\/\s?(\d\d?)'\s?(\d+)");
             if (match.Success)
@@ -244,10 +236,10 @@ namespace ImportExport.Import.Parser
                 else if (year < 100)
                     year += 1900;
 
-                date = new DateTime(year, month, day);
+                return new DateTime(year, month, day);
             }
 
-            return date;
+            return new DateTime();
         }
 
         private void parseSecurities()
