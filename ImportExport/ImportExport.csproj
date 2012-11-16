@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Xaml" />
@@ -48,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Import\ImportWizardFactory.cs" />
+    <Compile Include="Import\Parser\QifParser.cs" />
     <Compile Include="Wizard\FileBasedWizardViewModel.cs" />
     <Compile Include="Wizard\FileBasedWizardFactory.cs" />
     <Compile Include="Import\ViewModel\ChooseAcountPageViewModel.cs" />
@@ -78,7 +80,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PiggyDB\PiggyDB.csproj">
+      <Project>{9FE0281D-88D8-4DE8-B3B3-57BB11445E86}</Project>
+      <Name>PiggyDB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
