@@ -158,11 +158,13 @@ namespace ImportExport.Import.Parser
                         break;
 
                     case 'M':
+                    case 'E': // Memo for split.
                         // Memo
                         transaction.memo = _line.Substring(1);
                         break;
 
                     case 'L':
+                    case 'S': // Split
                         // Category (or transfer)
                         break;
 
@@ -174,6 +176,9 @@ namespace ImportExport.Import.Parser
                     case 'Q': // Quantity of shares.
                     case 'O': // Commission cost.
                     case 'N': // Check number or operation type.
+                    case 'U': // Don't know what it is, but seems to repeat T (value).
+                    case 'A': // Address, 5 lines max.
+                    case '$': // Value for split.
                         // TODO: ignored for now.
                         break;
 
