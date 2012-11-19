@@ -19,10 +19,14 @@ namespace ImportExport.Wizard
     /// </summary>
     public partial class WizardDialog : Window
     {
+        # region Constructor
+
         public WizardDialog(WizardViewModel dataContext)
         {
             InitializeComponent();
             base.DataContext = dataContext;
         }
+
+        #endregion Constructor
     }
 }

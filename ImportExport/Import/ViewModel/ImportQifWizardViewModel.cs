@@ -37,8 +37,6 @@ namespace ImportExport.Import
             // Parse the file.
             _parser = new Parser.QifParser(filePath);
             _parser.parse();
-
-            Text = _parser.Report;
         }
 
         #endregion // Constructor

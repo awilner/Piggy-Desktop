@@ -15,9 +15,13 @@ namespace ImportExport.Import
 
         #endregion // Constructor
 
+        #region Properties
+
         internal override bool IsValid()
         {
             throw new NotImplementedException();
         }
+
+        #endregion Properties
     }
 }
