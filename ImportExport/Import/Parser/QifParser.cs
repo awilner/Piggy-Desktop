@@ -11,7 +11,7 @@ namespace ImportExport.Import.Parser
 {
     class QifParser
     {
-        #region Fields;
+        #region Fields
 
         private string _file;
 
@@ -19,13 +19,8 @@ namespace ImportExport.Import.Parser
 
         private StreamReader _reader;
 
-        private Dictionary<string, PiggyDB.Account> _accounts = new Dictionary<string,PiggyDB.Account>();
-        private List<PiggyDB.Category> _categories = new List<PiggyDB.Category>();
-        private Dictionary<PiggyDB.Account,List<PiggyDB.Transaction>> _transactions = new Dictionary<PiggyDB.Account,List<PiggyDB.Transaction>>();
-        private List<string> _tags = new List<string>();
-        private List<string> _securities = new List<string>();
-        private List<string> _memorized = new List<string>();
-        private List<string> _prices = new List<string>();
+        private ImportModel _model = new ImportModel();
+
         private List<string> _messages = new List<string>();
 
         private string _currentAccount;
@@ -39,20 +34,33 @@ namespace ImportExport.Import.Parser
         {
             get
             {
-                string report = "";
+                StringBuilder report = new StringBuilder();
 
-                report += _accounts.Count + " accounts\n";
-                report += _categories.Count + " categories\n";
-                report += _transactions.Count + " transactions\n";
-                report += _tags.Count + " tags\n";
-                report += _securities.Count + " securities\n";
-                report += _memorized.Count + " memorized\n";
-                report += _prices.Count + " prices\n";
-                report += "-------\nMessages:\n\n";
+                report.Append(_model.Accounts.Count).Append(" accounts\n");
+                report.Append(_model.Categories.Count).Append(" categories\n");
+                int transactions = 0;
+                foreach (List<PiggyDB.Transaction> list in _model.Transactions.Values)
+                {
+                    transactions += list.Count;
+                }
+                report.Append(transactions).Append(" transactions\n");
+                report.Append(_model.Tags.Count).Append(" tags\n");
+                report.Append(_model.Securities.Count).Append(" securities\n");
+                report.Append(_model.Memorized.Count).Append(" memorized\n");
+                report.Append(_model.Prices.Count).Append(" prices\n");
+                report.Append("-------\nMessages:\n\n");
                 foreach (string message in _messages)
-                    report += message + "\n";
+                    report.Append(message).Append("\n");
 
-                return report;
+                return report.ToString();
+            }
+        }
+
+        public ImportModel Model
+        {
+            get
+            {
+                return _model;
             }
         }
 
@@ -137,7 +145,7 @@ namespace ImportExport.Import.Parser
         private void parseTransactions()
         {
             PiggyDB.Transaction transaction = new PiggyDB.Transaction();
-            PiggyDB.Account currentAccount = _accounts[_currentAccount];
+            PiggyDB.Account currentAccount = _model.Accounts[_currentAccount];
             while ((_line = _reader.ReadLine()) != null)
             {
                 switch (_line[0])
@@ -184,10 +192,10 @@ namespace ImportExport.Import.Parser
 
                     case '^':
                         // End of record. Store the current transaction and start a new one.
-                        if (!_transactions.ContainsKey(currentAccount))
-                            _transactions[currentAccount] = new List<PiggyDB.Transaction>();
+                        if (!_model.Transactions.ContainsKey(currentAccount))
+                            _model.Transactions[currentAccount] = new List<PiggyDB.Transaction>();
 
-                        _transactions[currentAccount].Add(transaction);
+                        _model.Transactions[currentAccount].Add(transaction);
                         transaction = new PiggyDB.Transaction();
                         break;
 
@@ -311,9 +319,9 @@ namespace ImportExport.Import.Parser
                     case '^':
                         // End of record. Store the current account and start a new one.
                         // Check if there already is an account with this name in the parse results.
-                        if (!_accounts.ContainsKey(account.name))
+                        if (!_model.Accounts.ContainsKey(account.name))
                         {
-                            _accounts.Add(account.name, account);
+                            _model.Accounts.Add(account.name, account);
                         }
 
                         if (_autoSwitch)
@@ -374,7 +382,7 @@ namespace ImportExport.Import.Parser
 
                     case '^':
                         // End of record. Store the current category and start a new one.
-                        _categories.Add(category);
+                        _model.Categories.Add(category);
                         category = new PiggyDB.Category();
                         break;
 
@@ -399,7 +407,7 @@ namespace ImportExport.Import.Parser
                 {
                     case 'N':
                         // The name of the tag.
-                        _tags.Add(_line.Substring(1));
+                        _model.Tags.Add(_line.Substring(1));
                         break;
 
                     case '^':

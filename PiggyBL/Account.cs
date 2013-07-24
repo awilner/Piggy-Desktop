@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace PiggyBL
+{
+    /// <summary>
+    /// Object that represents an account of any kind (checking, cash, savings, investment, etc).
+    /// </summary>
+    public class Account
+    {
+        #region Fields
+
+        /// <summary>
+        /// Unique id of the account.
+        /// </summary>
+        private readonly long _id;
+
+        /// <summary>
+        /// Unique name of the account.
+        /// </summary>
+        private string _name;
+
+        /// <summary>
+        /// Financial institution where the account is located.
+        /// </summary>
+        private FinancialInstitution _institution;
+
+        /// <summary>
+        /// Unique OFX acct_id
+        /// </summary>
+        private string _ofxId;
+
+        private double _currentBalance;
+        private double _finalBalance;
+
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Constructor
+        Account(long id, string name)
+        {
+            _id = id;
+            _name = name;
+        }
+        #endregion
+        
+        #region Methods
+        static List<Account> GetAccountList()
+        {
+            List<Account> list = new List<Account>();
+            PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
+            System.Data.Objects.ObjectSet<PiggyDB.Account> accounts = context.Accounts;
+            foreach (PiggyDB.Account account in accounts)
+            {
+                list.Add(new Account(account.id, account.name));
+            }
+            return list;
+        }
+
+        #endregion
+    }
+}

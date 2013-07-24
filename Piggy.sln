@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiggyUI", "PiggyUI\PiggyUI.csproj", "{1C494FC7-A9D2-40AF-8C8F-E9CFFDDAF2E8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{9FE0281D-88D8-4DE8-B3B3-57BB11445E86} = {9FE0281D-88D8-4DE8-B3B3-57BB11445E86}
 		{77F4F4CC-7F06-4544-BD34-34BA43079E5E} = {77F4F4CC-7F06-4544-BD34-34BA43079E5E}
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D} = {BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiggyDB", "PiggyDB\PiggyDB.csproj", "{9FE0281D-88D8-4DE8-B3B3-57BB11445E86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportExport", "ImportExport\ImportExport.csproj", "{77F4F4CC-7F06-4544-BD34-34BA43079E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiggyBL", "PiggyBL\PiggyBL.csproj", "{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FE0281D-88D8-4DE8-B3B3-57BB11445E86} = {9FE0281D-88D8-4DE8-B3B3-57BB11445E86}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +56,16 @@ Global
 		{77F4F4CC-7F06-4544-BD34-34BA43079E5E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{77F4F4CC-7F06-4544-BD34-34BA43079E5E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{77F4F4CC-7F06-4544-BD34-34BA43079E5E}.Release|x86.ActiveCfg = Release|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
