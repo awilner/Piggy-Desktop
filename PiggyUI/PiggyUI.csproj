@@ -140,6 +140,10 @@
       <Project>{77F4F4CC-7F06-4544-BD34-34BA43079E5E}</Project>
       <Name>ImportExport</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PiggyBL\PiggyBL.csproj">
+      <Project>{BCD4BFE9-8DC1-4039-A8E3-8831BBF6484D}</Project>
+      <Name>PiggyBL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

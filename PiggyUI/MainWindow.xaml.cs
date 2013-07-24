@@ -23,9 +23,12 @@ namespace PiggyUI
         public MainWindow()
         {
             InitializeComponent();
-            //PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
-            //var query = from c in context.Currencies select c;
-            //transactionsDataGrid.ItemsSource = query;
+
+            List<PiggyBL.Account> accounts = PiggyBL.PiggyManager.Instance.GetAccountList();
+            foreach(PiggyBL.Account account in accounts)
+            {
+                accountsTreeView.Items.Add(account.Name);
+            }
         }
 
         #region Commands

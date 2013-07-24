@@ -38,10 +38,24 @@ namespace PiggyBL
         #endregion
 
         #region Properties
+        double CurrentBalance
+        {
+            get
+            {
+                return _currentBalance;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+        }
         #endregion
 
         #region Constructor
-        Account(long id, string name)
+        public Account(long id, string name)
         {
             _id = id;
             _name = name;
@@ -49,18 +63,7 @@ namespace PiggyBL
         #endregion
         
         #region Methods
-        static List<Account> GetAccountList()
-        {
-            List<Account> list = new List<Account>();
-            PiggyDB.PiggyContext context = new PiggyDB.PiggyContext();
-            System.Data.Objects.ObjectSet<PiggyDB.Account> accounts = context.Accounts;
-            foreach (PiggyDB.Account account in accounts)
-            {
-                list.Add(new Account(account.id, account.name));
-            }
-            return list;
-        }
-
         #endregion
+
     }
 }
