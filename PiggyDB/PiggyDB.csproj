@@ -65,6 +65,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <None Include="Database\piggy.s3db" />
     <None Include="Database\piggy_empty.s3db" />
     <None Include="Database\piggy_full_2011.s3db" />
@@ -84,11 +85,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\accounts.sql" />
-    <Content Include="Database\categories.sql" />
-    <Content Include="Database\schema.sql" />
-    <Content Include="Database\seed.sql" />
-    <Content Include="Database\transactions.sql" />
+    <None Include="Database\accounts.sql" />
+    <None Include="Database\categories.sql" />
+    <None Include="Database\schema.sql" />
+    <None Include="Database\seed.sql" />
+    <None Include="Database\transactions.sql" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
