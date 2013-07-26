@@ -63,32 +63,53 @@ CREATE TABLE Transactions (
   --CHECK (status IN(' ','CLEARED','RECONCILED','PENDING'))
   CHECK (status IN(' ','C','R','P'))
 );
-CREATE TRIGGER insert_transaction AFTER INSERT ON Transactions
- FOR EACH ROW BEGIN
+CREATE TRIGGER insert_transaction_from AFTER INSERT ON Transactions
+ FOR EACH ROW WHEN NEW.from_account NOT NULL AND NEW.status<>'P' BEGIN
 
    -- Insert a new balance for the debit account, if needed.
-   INSERT OR ROLLBACK INTO Balance
-     SELECT NEW.from_account, NEW.date, balance
-     FROM Balance
-     WHERE
-       NOT EXISTS (SELECT * FROM Balance WHERE date = NEW.date AND account = NEW.from_account)
-       AND account = NEW.from_account AND date < NEW.date
-     ORDER BY date DESC
-     LIMIT 1;
+   INSERT OR REPLACE INTO Balance
+     SELECT account, curr_date, balance FROM
+     (
+       SELECT pref, account, curr_date, balance FROM
+       (
+         SELECT 1 as pref, NEW.date AS curr_date, *
+           FROM Balance
+         WHERE
+           account = NEW.from_account AND date <= NEW.date
+         ORDER BY date DESC
+         LIMIT 1
+       )
+       UNION
+       SELECT 2 as pref, NEW.from_account, NEW.date, 0
+       ORDER BY pref
+       LIMIT 1
+     );
 
    -- Now update every balance for this account from the current date onward.
    UPDATE OR ROLLBACK Balance SET balance = balance - NEW.value
      WHERE account = NEW.from_account AND date >= NEW.date;
+ END;
+CREATE TRIGGER insert_transaction_to AFTER INSERT ON Transactions
+ FOR EACH ROW WHEN NEW.to_account NOT NULL AND NEW.status<>'P' BEGIN
 
    -- Insert a new balance for the credit account, if needed.
-   INSERT OR ROLLBACK INTO Balance
-     SELECT NEW.to_account, NEW.date, balance
-     FROM Balance
-     WHERE
-       NOT EXISTS (SELECT * FROM Balance WHERE date = NEW.date AND account = NEW.to_account)
-       AND account = NEW.to_account AND date < NEW.date
-     ORDER BY date DESC
-     LIMIT 1;
+   INSERT OR REPLACE INTO Balance
+     SELECT account, curr_date, balance FROM
+     (
+       SELECT pref, account, curr_date, balance FROM
+       (
+         SELECT 1 as pref, NEW.date AS curr_date, *
+           FROM Balance
+         WHERE
+           account = NEW.to_account AND date <= NEW.date
+         ORDER BY date DESC
+         LIMIT 1
+       )
+       UNION
+       SELECT 2 as pref, NEW.to_account, NEW.date, 0
+       ORDER BY pref
+       LIMIT 1
+     );
 
    -- Now update every balance for this account from the current date onward.
    UPDATE OR ROLLBACK Balance SET balance = balance + NEW.value
@@ -96,7 +117,7 @@ CREATE TRIGGER insert_transaction AFTER INSERT ON Transactions
 
  END;
 CREATE TRIGGER delete_transaction AFTER DELETE ON Transactions
- FOR EACH ROW BEGIN
+ FOR EACH ROW WHEN OLD.status<>'P' BEGIN
 
    -- Delete the debit account's balance for the date if the deleted transaction was the only one for the date.
    DELETE FROM Balance

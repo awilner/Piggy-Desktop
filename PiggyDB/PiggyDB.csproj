@@ -67,11 +67,13 @@
   <ItemGroup>
     <None Include="Database\piggy.s3db" />
     <None Include="Database\piggy_empty.s3db" />
+    <None Include="Database\piggy_full_2011.s3db" />
     <None Include="Database\piggy_seed.s3db" />
     <EntityDeploy Include="PiggyDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PiggyDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Database\piggy_seed_accts_cats.s3db" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -82,8 +84,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\accounts.sql" />
+    <Content Include="Database\categories.sql" />
     <Content Include="Database\schema.sql" />
     <Content Include="Database\seed.sql" />
+    <Content Include="Database\transactions.sql" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
